@@ -669,3 +669,11 @@ html, body {
   display: block;
   margin: 0 auto;
 }
+
+
+#app {
+  transform: scale(0.9);
+  transform-origin: top center;
+  width: 111.11%; /* เพิ่มความกว้างเผื่อ เพื่อไม่ให้ช่องว่างขอบข้างเยอะเกินไปหลังการย่อ */
+  height: 111.11%;
+}
