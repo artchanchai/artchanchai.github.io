@@ -670,9 +670,3 @@ html, body {
   margin: 0 auto;
 }
 
-#app {
-  transform: scale(0.9);
-  transform-origin: center;
-  width: 100%; /* เพิ่มความกว้างเผื่อ เพื่อไม่ให้ช่องว่างขอบข้างเยอะเกินไปหลังการย่อ */
-  height: 100%;
-}
