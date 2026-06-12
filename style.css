@@ -498,9 +498,10 @@ body {
 
 
 
+
 .top-text {
 
-    margin-bottom: 30px; /* เว้นระยะห่างระหว่างข้อความกับรูป */
+    margin-bottom: 5px; /* เว้นระยะห่างระหว่างข้อความกับรูป */
 
     text-align: center;
 
@@ -522,7 +523,9 @@ body {
 
    
 
-    font-size: 40px;
+
+  font-size: 3vw;
+
 
     color: white;
 
@@ -532,19 +535,22 @@ body {
 
     text-shadow:
 
-        3px 3px 0 #000, -3px -3px 0 #000,
+        2px 2px 0 #000, -2px -2px 0 #000,
 
-        3px -3px 0 #000, -3px 3px 0 #000,
+        2px -2px 0 #000, -2px 2px 0 #000,
 
-        3px 0 0 #000, -3px 0 0 #000,
+        2px 0 0 #000, -2px 0 0 #000,
 
-        0 3px 0 #000, 0 -3px 0 #000,
+        0 1px 0 #000, 0 -1px 0 #000,
 
-        0 0 10px #00c3ff, 0 0 20px #00c3ff,
+        0 0 5px #00c3ff, 0 0 10px #00c3ff,
 
-        0 0 30px #ffffff, 0 0 40px #ffffff;
+        0 0 15px #ffffff, 0 0 20px #ffffff;
 
 }
+
+
+
 
 
 
