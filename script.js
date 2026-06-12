@@ -200,7 +200,7 @@ function startGame() {
 
   
 var gameAudio = document.getElementById("gameMusic");
-gameAudio.volume = 0.5; // กำหนดความดังระหว่าง 0.0 ถึง 1.0
+gameAudio.volume = 0.65; // กำหนดความดังระหว่าง 0.0 ถึง 1.0
 gameAudio.play();
 
 
