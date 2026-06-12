@@ -524,7 +524,7 @@ body {
    
 
 
-  font-size: 4vw;
+ font-size: clamp(16px, 4vw, 64px);
 
 
     color: white;
