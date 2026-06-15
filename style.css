@@ -717,6 +717,4 @@ html, body {
 
 
 
-.character-class {
-    pointer-events: none; /* เมาส์จะทะลุตัวละครไปกดปุ่มข้างหลังได้ทันที */
-}
+
