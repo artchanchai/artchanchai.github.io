@@ -1,470 +1,182 @@
-* { font-family: 'Prompt', sans-serif; }
+* { font-family: 'Prompt', sans-serif; box-sizing: border-box; }
 
 html, body { min-height: 100vh;  margin: 0; padding: 0;  box-sizing: border-box;  width: 100%;
   height: 100%; margin: 0; }
 
-
-
+/* ========== ANIMATIONS ========== */
 @keyframes float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
-
 @keyframes pulse-glow { 0%,100%{ box-shadow: 0 0 20px rgba(255,255,0,0.4); } 50%{ box-shadow: 0 0 40px rgba(255,255,0,0.8); } }
-
 @keyframes shimmer { 0%{ background-position: -200% center; } 100%{ background-position: 200% center; } }
-
 @keyframes confetti-fall { 0%{ transform: translateY(-100%) rotate(0deg); opacity:1; } 100%{ transform: translateY(100%) rotate(720deg); opacity:0; } }
-
 @keyframes heart-beat { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.3); } }
-
 @keyframes slide-in { from { transform: translateY(30px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+@keyframes launch {
+  0% { bottom: 0; transform: translateX(-50%) scale(1); }
+  50% { bottom: 80%; transform: translateX(-50%) scale(1); background-color: #ff0; }
+  60% { bottom: 80%; transform: translateX(-50%) scale(2); opacity: 0; }
+  100% { bottom: 80%; opacity: 0; }
+}
 
-
-
+/* ========== UTILITY CLASSES ========== */
 .float-anim { animation: float 2s ease-in-out infinite; }
-
 .glow-btn { animation: pulse-glow 2s ease-in-out infinite; }
-
-.shimmer-text { 
-  background: linear-gradient(90deg, #fff, #ffd700, #fff); 
-  background-size: 200% auto; 
-  -webkit-background-clip: text; 
-  background-clip: text; /* เพิ่มบรรทัดนี้เข้าไปครับ */
-  -webkit-text-fill-color: transparent; 
-  animation: shimmer 3s linear infinite; 
+.shimmer-text {
+  background: linear-gradient(90deg, #fff, #ffd700, #fff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
 }
 .heart-beat { animation: heart-beat 0.6s ease-in-out; }
-
 .slide-in { animation: slide-in 0.5s ease-out forwards; }
-
-
-
-.fraction-display { display: inline-flex; flex-direction: column; align-items: center; margin: 0 6px; }
-
-.fraction-display .num { font-size: 1.8rem; font-weight: 700; }
-
-.fraction-display .line { width: 100%; height: 3px; background: #fff; margin: 2px 0; border-radius: 2px; }
-
-.fraction-display .den { font-size: 1.8rem; font-weight: 700; }
-
-
-
-.choice-btn { transition: all 0.15s; }
-
-.choice-btn:active { transform: scale(0.93); }
-
-.choice-btn.correct { background: #22c55e !important; }
-
-.choice-btn.wrong { background: #ef4444 !important; }
-
-
-
-.page { position: absolute; inset: 0; display: none; flex-direction: column; }
-
-.page.active { display: flex; }
-
-
-
-.bg-cover-full { background-size: cover; background-position: center; background-repeat: no-repeat; }
-
-
-
-.light-particle { position: absolute; width: 6px; height: 6px; background: rgba(255,255,200,0.8); border-radius: 50%; animation: float 3s ease-in-out infinite; pointer-events: none; }
-
-
-
-
-
-
-
-.hidden {
-
-    display: none;
-
-}
-
-.fixed {
-
-    position: fixed;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-}
-
-.bg-black {
-
-    background-color: rgba(0, 0, 0, 0.5);
-
-}
-
-.flex {
-
-    display: flex;
-
-}
-
-.items-center {
-
-    align-items: center;
-
-}
-
-.justify-center {
-
-    justify-content: center;
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.glow-button {
-
-  background: linear-gradient(45deg, #ff007f, #7928ca);
-
-  border: none;
-
-  color: white;
-
-  padding: 15px 30px;
-
-  font-size: 18px;
-
-  font-weight: bold;
-
-  border-radius: 50px;
-
-  cursor: pointer;
-
-  transition: all 0.3s ease;
-
-  box-shadow: 0 0 15px rgba(121, 40, 202, 0.6);
-
-}
-
-
-
-.glow-button:hover {
-
-  box-shadow: 0 0 25px rgba(255, 0, 127, 0.8), 0 0 35px rgba(121, 40, 202, 0.9);
-
-}
-
-
-
-
-
-
-
-
-
-body {
-
-    margin: 0;
-
-    padding: 0;
-
-    overflow: hidden;
-
-    background-color: #000;
-
-}
-
-
-
-.page-container {
-
-    width: 1920px;
-
-    height: 1080px;
-
-    position: relative;
-
-    background: #111; /* พื้นหลังหน้าเพจ */
-
-}
-
-
-
-.fireworks-area {
-
-    position: absolute;
-
-    bottom: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%; /* ให้พุพุ่งขึ้นมาจากครึ่งล่าง */
-
-    pointer-events: none;
-
-}
-
-
-
-.firework {
-
-    position: absolute;
-
-    bottom: 0;
-
-    left: 50%;
-
-    width: 10px;
-
-    height: 10px;
-
-    background-color: #ff0;
-
-    border-radius: 50%;
-
-    animation: launch 5s infinite ease-out;
-
-}
-
-
-
-@keyframes launch {
-
-    0% {
-
-        bottom: 0;
-
-        transform: translateX(-50%) scale(1);
-
-    }
-
-    50% {
-
-        bottom: 80%;
-
-        transform: translateX(-50%) scale(1);
-
-        background-color: #ff0;
-
-    }
-
-    60% {
-
-        bottom: 80%;
-
-        transform: translateX(-50%) scale(2);
-
-        opacity: 0;
-
-    }
-
-    100% {
-
-        bottom: 80%;
-
-        opacity: 0;
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-body {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    min-height: 100vh;
-
-    margin: 0;
-
-    background-color: #f0f0f0;
-
-}
-
-
-
-.container {
-
-    display: flex;
-
-    gap: 20px;
-
-    max-width: 10px;
-
-    width: 10%;
-
-}
-
-
-
-.image-box {
-
-    flex: 1;
-
-    background-color: rgba(255, 255, 255, 0.5);
-
-    padding: 1px;
-
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    border-radius: 8px;
-
-}
-
-
-
-.image-box img {
-
-    width: 10%;
-
-    height: auto;
-
-    display: block;
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ========== IMAGE CONTAINER (pages 3,4,7) ========== */
-.image-container {
+.hidden { display: none !important; }
+
+/* ========== PAGE SYSTEM ========== */
+.page {
+  position: absolute;
+  inset: 0;
   display: none;
   flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: clamp(60px, 10vh, 100px);
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: auto;
-  height: auto;
-  max-width: 500px;
-  z-index: 10;
-  padding: 10px;
-}
-
-#page3.active .image-container,
-#page4.active .image-container,
-#page7.active .image-container {
-  display: flex;
-}
-
-.image-container img {
-  max-width: 100%;
   width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  border: 4px solid #fff;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  height: 100vh;
+  min-height: 100vh;
+  top: 0;
+  left: 0;
+}
+.page.active { display: flex; }
+.bg-cover-full {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
+/* ========== FRACTION DISPLAY ========== */
+.fraction-display { display: inline-flex; flex-direction: column; align-items: center; margin: 0 4px; }
+.fraction-display .num { font-size: clamp(1rem, 3vw, 1.8rem); font-weight: 700; }
+.fraction-display .line { width: 100%; height: 3px; background: #fff; margin: 2px 0; border-radius: 2px; }
+.fraction-display .den { font-size: clamp(1rem, 3vw, 1.8rem); font-weight: 700; }
 
+/* ========== CHOICE BUTTONS ========== */
+.choice-btn { transition: all 0.15s; font-size: clamp(0.7rem, 2vw, 1rem); }
+.choice-btn:active { transform: scale(0.93); }
+.choice-btn.correct { background: #22c55e !important; }
+.choice-btn.wrong { background: #ef4444 !important; }
 
+/* ========== FIREWORKS ========== */
+.firework {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #ff0;
+  border-radius: 50%;
+  animation: launch 5s infinite ease-out;
+}
 
+/* ========== LIGHT PARTICLE ========== */
+.light-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,200,0.8);
+  border-radius: 50%;
+  animation: float 3s ease-in-out infinite;
+  pointer-events: none;
+}
 
+/* ========== GLOW BUTTON (home) ========== */
+.glow-button {
+  background: linear-gradient(45deg, #ff007f, #7928ca);
+  border: none;
+  color: white;
+  padding: clamp(8px, 2vw, 15px) clamp(16px, 4vw, 30px);
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(121, 40, 202, 0.6);
+}
+.glow-button:hover { box-shadow: 0 0 25px rgba(255, 0, 127, 0.8), 0 0 35px rgba(121, 40, 202, 0.9); }
 
-
-
-
-
-
-
-
-
-/* ซ่อนกล่องรูปภาพเป็นค่าเริ่มต้น */
+/* ========== IMAGE CONTAINER (pages 3,4,7) ========== */
 
 .image-container {
 
-    display: none;
+    display: flex;             /* ใช้จัดตำแหน่ง */
+
+    justify-content: center;   /* จัดให้อยู่กลางแนวนอน */
+
+    position: absolute;        /* อ้างอิงตำแหน่งกับหน้าจอ */
+
+    top: auto;                /* ปรับค่านี้เพื่อเลื่อนลงมาจากด้านบน (ยิ่งเลขมากยิ่งห่าง) */
+
+    left: 0;
+
+    right: 0;
+
+    margin: auto;
+
+    width: 50%;                /* กำหนดความกว้างกล่อง */
+
+    max-width: 500px;          /* ไม่ให้กว้างเกินไปบนจอคอม */
+
+    z-index: 10;               /* ให้กล่องอยู่ชั้นบนสุด */
 
 }
 
 
 
-/* ถ้าหน้า 3 ถูกแสดง (สมมติว่าหน้า 3 มี class 'active') ให้โชว์รูป */
+/* ปรับแต่งตัวรูปภาพให้สวยงาม */
 
-#page3.active .image-container {
+.image-container img {
 
-    display: flex;
+    border: 5px solid #fff;    /* ขอบรูป */
+
+    border-radius: 15px;       /* มุมมน */
+
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* เงาให้ดูมีมิติ */
 
 }
 
 
+/* ========== TOP TEXT / NEON ========== */
+.top-text {
+  margin-bottom: clamp(10px, 2vh, 30px);
+  text-align: center;
+  
+}
 
+.neon-text {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: clamp(16px, 4vw, 64px);
+  color: white;
+  text-shadow:
+    3px 3px 0 #000, -3px -3px 0 #000,
+    3px -3px 0 #000, -3px 3px 0 #000,
+    3px 0 0 #000, -3px 0 0 #000,
+    0 3px 0 #000, 0 -3px 0 #000,
+    0 0 10px #00c3ff, 0 0 20px #00c3ff,
+    0 0 30px #ffffff, 0 0 40px #ffffff;
+  line-height: 1.3;
+}
 
-
-
-
-
-
-
-
-
-
-
+/* ========== CARTOON CHARACTERS ========== */
+.cartoon-char {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: clamp(80px, 25vw, 200px);
+  max-width: 20%;
+  height: auto;
+  pointer-events: none;
+}
 
 
 
@@ -480,9 +192,9 @@ body {
 
      width: auto;
 
-    height: 300px ;
+    height: auto;
 
-    max-width: 90%;
+    max-width: 100%;
 
     margin: 20px auto;
 
@@ -495,232 +207,86 @@ body {
 
 
 
-.top-text {
 
-    margin-bottom: 5px; /* เว้นระยะห่างระหว่างข้อความกับรูป */
 
-    text-align: center;
 
+
+
+/* ========== PAGE 5 - GAME PAGE ========== */
+
+
+
+
+
+
+#page5 .relative.z-10 {
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-
-
-.neon-text {
-
-    font-family: 'Kanit', sans-serif; /* ใช้ฟอนต์ Kanit */
-
-    font-weight: 700;                 /* ความหนาระดับสูงสุด */
-
-   
-
-    /* ตัวหนังสือกลมมนมักจะดูดีเมื่อใส่ขอบเพิ่มเล็กน้อย */
-
-    letter-spacing: 1px;              /* เว้นระยะตัวอักษรเล็กน้อยให้ดูสะอาด */
-
-   
-
-
- font-size: clamp(16px, 4vw, 64px);
-
-
-    color: white;
-
-   
-
-    /* ขอบดำ + แสงทองที่คุณต้องการ (ใช้โค้ดชุดเดิมได้เลยครับ) */
-
-    text-shadow:
-
-        2px 2px 0 #000, -2px -2px 0 #000,
-
-        2px -2px 0 #000, -2px 2px 0 #000,
-
-        2px 0 0 #000, -2px 0 0 #000,
-
-        0 1px 0 #000, 0 -1px 0 #000,
-
-        0 0 5px #00c3ff, 0 0 10px #00c3ff,
-
-        0 0 15px #ffffff, 0 0 20px #ffffff;
-
+#questionArea {
+  padding: clamp(0.5rem, 2vw, 2.5rem) !important;
+  margin-bottom: clamp(0.5rem, 1.5vh, 1.5rem) !important;
 }
 
-
-
-
-
-
-
-
-
-
-/* พื้นฐานสำหรับทุกอุปกรณ์ */
-
-html, body {
-
-    margin: 0;
-
-    padding: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    overflow-x: hidden; /* ป้องกันการเลื่อนซ้ายขวา */
-
+#questionText {
+  font-size: clamp(1rem, 3.5vw, 2rem) !important;
 }
 
+/* ========== RESPONSIVE BREAKPOINTS ========== */
 
-
-.page {
-
-    display: none;
-
-    width: 100%;
-
-    height: 100vh;
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
-
-}
-
-
-
-.page.active {
-
-    display: block;
-
-}
-
-
-
-/* ทำให้รูปภาพปรับขนาดตามหน้าจอ */
-
-.image-container img {
-
-    max-width: 90%;
-
-    height: auto;
-
-    display: block;
-
-    margin: 0 auto;
-
-    border-radius: 15px;
-
-}
-
-
-
-/* ปรับแต่งสำหรับแท็บเล็ตและจอเล็ก */
-
+/* Tablet & Small Laptop (≤1024px) */
 @media (max-width: 1024px) {
-
-    .text-3xl { font-size: 1.5rem; }
-
-    .md\:text-5xl { font-size: 2rem; }
-
-   
-
-    /* ลดขนาด Container ของเกม */
-
-    #questionArea {
-
-        padding: 1rem !important;
-
-    }
-
-   
-
-    /* ปรับขนาดตัวอักษรเศษส่วนให้เล็กลงในมือถือ/แท็บเล็ต */
-
-    .fraction-display {
-
-        font-size: 0.8rem;
-
-    }
-
+  .neon-text { font-size: clamp(16px, 3.5vw, 32px); }
+  #questionArea { padding: 0.75rem !important; }
 }
 
-
-
-/* ป้องกันตัวการ์ตูนบังปุ่มบน iPad */
-
-@media (max-height: 800px) {
-
-    .CT1, .CT2 {
-
-        display: none; /* ซ่อนตัวการ์ตูนถ้าจอเตี้ยเกินไป */
-
-
-
-
-        
-    }
-
+/* Mobile Large (≤768px) */
+@media (max-width: 768px) {
+  .image-container {
+    top: clamp(50px, 8vh, 80px);
+    width: 92%;
+    max-width: 100%;
+  }
+  .neon-text { font-size: clamp(14px, 4vw, 24px); }
+  #timerDisplay { font-size: clamp(1rem, 4vw, 1.5rem) !important; padding: 4px 16px !important; }
+  #questionText { font-size: clamp(0.85rem, 3vw, 1.25rem) !important; }
+  .choice-btn { font-size: clamp(0.65rem, 2.5vw, 0.9rem); padding: 6px 4px !important; }
+  .fraction-display .num,
+  .fraction-display .den { font-size: clamp(0.75rem, 2.5vw, 1.2rem); }
 }
 
-.CT1, .CT2 {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+/* Mobile Small (≤480px) */
+@media (max-width: 480px) {
+  .image-container {
+    top: clamp(45px, 7vh, 70px);
+    width: 95%;
+    padding: 5px;
+  }
+  .neon-text { font-size: clamp(12px, 4.5vw, 20px); letter-spacing: 0px; }
+  #questionArea { padding: 0.5rem !important; }
+  #questionText { font-size: clamp(0.8rem, 3.5vw, 1.1rem) !important; }
+  .glow-button { padding: 8px 20px; font-size: 14px; }
 }
 
-
-
-
-
-
-
-
-.app-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+/* Short screens - hide cartoon so buttons stay accessible */
+@media (max-height: 700px) {
+  .cartoon-char { display: none !important; }
+  img[src="CT1.gif"], img[src="CT2.gif"] { display: none !important; }
 }
 
-.top-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  overflow: hidden;
-  max-height: 50vh;
+/* Very short screens (landscape phone) */
+@media (max-height: 500px) {
+  .image-container { top: 40px; max-height: 55vh; overflow: hidden; }
+  .image-container img { max-height: 45vh; object-fit: contain; }
+  .neon-text { font-size: 13px; }
 }
 
-.bottom-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  overflow: hidden;
-  max-height: 50vh;
+/* Landscape orientation on phone */
+@media (max-height: 450px) and (orientation: landscape) {
+  #page2 .float-anim.bg-white\/90 { padding: 12px !important; }
+  #page2 h2 { font-size: 1.2rem !important; margin-bottom: 4px !important; }
+  #page2 p { font-size: 0.9rem !important; }
+  #page1 .space-y-3 { gap: 6px !important; }
+  #page1 input { padding: 8px 16px !important; }
 }
-
-
-
-
-
-
-
-.cartoon-char {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  width: clamp(80px, 25vw, 200px);
-  max-width: 33%;
-  height: auto;
-  pointer-events: none;
-}
-
