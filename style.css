@@ -387,55 +387,50 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+/* ========== IMAGE CONTAINER (pages 3,4,7) ========== */
 .image-container {
-
-    display: flex;             /* ใช้จัดตำแหน่ง */
-
-    justify-content: center;   /* จัดให้อยู่กลางแนวนอน */
-
-    position: absolute;        /* อ้างอิงตำแหน่งกับหน้าจอ */
-
-    top: 100px;                /* ปรับค่านี้เพื่อเลื่อนลงมาจากด้านบน (ยิ่งเลขมากยิ่งห่าง) */
-
-    left: 0;
-
-    right: 0;
-
-    margin: auto;
-
-    width: 80%;                /* กำหนดความกว้างกล่อง */
-
-    max-width: 500px;          /* ไม่ให้กว้างเกินไปบนจอคอม */
-
-    z-index: 10;               /* ให้กล่องอยู่ชั้นบนสุด */
-
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: clamp(60px, 10vh, 100px);
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: auto;
+  height: auto;
+  max-width: 500px;
+  z-index: 10;
+  padding: 10px;
 }
 
-
-
-/* ปรับแต่งตัวรูปภาพให้สวยงาม */
+#page3.active .image-container,
+#page4.active .image-container,
+#page7.active .image-container {
+  display: flex;
+}
 
 .image-container img {
-
-    border: 5px solid #fff;    /* ขอบรูป */
-
-    border-radius: 15px;       /* มุมมน */
-
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* เงาให้ดูมีมิติ */
-
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: 4px solid #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
