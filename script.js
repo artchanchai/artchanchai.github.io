@@ -447,6 +447,34 @@ noBtn.addEventListener('click', function() {
 
 
 
+function checkOverlap() {
+    const char = document.getElementById('character');
+    const btn = document.getElementById('homeButton');
+
+    const charRect = char.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+
+    // เช็คว่ามีการทับกันหรือไม่
+    const isOverlapping = !(charRect.right < btnRect.left || 
+                            charRect.left > btnRect.right || 
+                            charRect.bottom < btnRect.top || 
+                            charRect.top > btnRect.bottom);
+
+    if (isOverlapping) {
+        char.classList.add('hidden'); // ถ้าทับกัน ให้ซ่อนตัวละคร
+    } else {
+        char.classList.remove('hidden'); // ถ้าไม่ทับ ให้แสดงปกติ
+    }
+}
+
+// เรียกใช้ฟังก์ชันนี้ทุกครั้งที่มีการขยายตัวละคร หรือใช้ setInterval
+setInterval(checkOverlap, 100);
+
+
+
+
+
+
 
 
 
